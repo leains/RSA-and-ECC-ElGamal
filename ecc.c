@@ -106,7 +106,7 @@ int main() {
     }
 
     // Encryption
-    clock_t start_enc = clock();
+    
     Point C1[256],C2[256],kQ[256];
     int k = 7; /*Kasus nyata : K nya akan digenerate secara acak.*/
     int offset[256];
@@ -122,9 +122,7 @@ int main() {
         C2[i] = addPoint(M, kQ[i]);
         printf("Encrypted C(%d): (%d, %d), C2: (%d, %d)\n", i, C1[i].x, C1[i].y, C2[i].x, C2[i].y);
     }
-    clock_t end_enc = clock();
-
-    clock_t start_dec = clock();
+    
     // Decryption
     int recovered[256];
     for (int i=0;i<len;i++) {
@@ -132,15 +130,12 @@ int main() {
         dkC1.y = PRIME - dkC1.y;
         Point decrypted = addPoint(C2[i], dkC1);
         recovered[i] = (decrypted.x - offset[i] + PRIME) % PRIME;
+        
     }
     
     for (int i=0;i<len;i++) {
         printf("%c", (char)recovered[i]);
     }
-    clock_t end_dec = clock();
-
-    printf("Waktu Enkripsi: %.10f detik\n", (double)(end_enc - start_enc) / CLOCKS_PER_SEC);
-    printf("Waktu Dekripsi: %.10f detik\n", (double)(end_dec - start_dec) / CLOCKS_PER_SEC);
     return 0;
 }
 
