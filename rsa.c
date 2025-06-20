@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include <time.h>
 
 /*Mencari PBB*/
 int pbb(int a, int b){
@@ -68,26 +67,22 @@ int main(){
         ascii[i] = (int)input[i];
     }
     /*Enkripsi*/
-    clock_t start_enc = clock();
     int encrypted[256];
     for (int i=0;i<strlen(input);i++){
         encrypted[i] = calculation(ascii[i],e,n);
         printf("Encrypted %d : %d",i,encrypted[i]);
         printf("\n");
     }
-    clock_t end_enc = clock();
-    clock_t start_dec = clock();
+
     /*Dekripsi*/
     int decrypted[256];
     for (int i=0;i<strlen(input);i++){
         decrypted[i] = calculation(encrypted[i],d,n);
     }
-    clock_t end_dec = clock();
+
     printf("Pesan baru: ");
     for (int i=0;i<strlen(input);i++){
         printf("%c",(char)decrypted[i]);
     }
 
-    printf("Waktu Enkripsi: %.10f detik\n", (double)(end_enc - start_enc) / CLOCKS_PER_SEC);
-    printf("Waktu Dekripsi: %.10f detik\n", (double)(end_dec - start_dec) / CLOCKS_PER_SEC);
 }
